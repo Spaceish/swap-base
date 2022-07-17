@@ -1,1 +1,1 @@
-from swap import swap
+from swap import lol
