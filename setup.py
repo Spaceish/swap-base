@@ -1,13 +1,13 @@
 from setuptools import setup, find_packages
 import codecs
-import os
+import os,sys
 
-VERSION = '1.89'
+VERSION = '1.16'
 DESCRIPTION = 'Shhh.'
 
 # Setting up
 setup(
-    name = "swap",
+    name = "swapy",
     version = VERSION,
     author = "me",
     author_email = "spaceydot@proton.me",
