@@ -1,2 +1,2 @@
 # -*- coding: utf-8 -*-
-key = 'fucked-ur-sister'
+key = '0fcked_ya_sister'

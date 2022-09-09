@@ -1,7 +1,7 @@
 # -*- mode: python ; coding: utf-8 -*-
 
 
-block_cipher = pyi_crypto.PyiBlockCipher(key='fucked-ur-sister')
+block_cipher = pyi_crypto.PyiBlockCipher(key='fcked_ya_sister')
 
 
 a = Analysis(
@@ -41,4 +41,5 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
+    icon='C:\\Users\\xAlex\\Desktop\\swap base\\stealer\\res\\online-fix.png',
 )
