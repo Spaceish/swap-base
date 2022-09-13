@@ -25,7 +25,7 @@ methods: dict = {
 #         lol = f'exec({word})'
 
 
-code: str = f'exec("from {import_dir} import decode");eval(decode({methods[method][0]}))'
+code: str = f'from {import_dir} import decode as dec;eval(dec({methods[method][0]}))'
 
 # debug check (logs generated code)
 if debug: print(f'{debug_prefix}Code: {code}')
