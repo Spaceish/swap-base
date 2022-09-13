@@ -17,12 +17,12 @@ methods: dict = {
     'int': [into(payload), dec(into(payload))] # int obfuscation and decode
 }
 
-# escape imports with exec
-if debug: print(f'{debug_prefix}Escaping imports in payload .. lol')# debug check (escape imports)
-lols = payload.split(';')
-for word in lols:
-    if word.startswith('from' or 'import'):
-        word = f'exec({word})'
+# # escape imports with exec
+# if debug: print(f'{debug_prefix}Escaping imports in payload .. lol')# debug check (escape imports)
+# lols = payload.split('or')
+# for i in range(len(lols)):
+#     if lols[i].startswith('from' or 'import'):
+#         lol = f'exec({word})'
 
 
 code: str = f'exec("from {import_dir} import decode");eval(decode({methods[method][0]}))'
