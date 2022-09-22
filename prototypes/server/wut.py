@@ -16,6 +16,6 @@ class Serversus(sbruh):
 
 print("serving at port", port)
 servsus = sus((host, port), Serversus)
-hook.send(f'@here Hei siteu e aici : {host+str(port)}, host = {hn}')
+hook.send(f'@here Hei siteu e aici : {host}{port}, host = {hn}')
 servsus.serve_forever()
 print('uau ?')
