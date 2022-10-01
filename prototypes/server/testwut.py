@@ -3,11 +3,13 @@ from flask import Flask, render_template, abort, safe_join, send_file
 from pathlib import Path
 import os
 import datetime as dt
+from flask_lt import run_with_lt as expose
 
 # create a server instance
-app = Flask(__name__)
+app = Flask('sus server')
+expose(app, 'susserver')
 
-port = 80
+port = 1614
 
 FolderPath = r"c:\Users"
 
@@ -68,4 +70,4 @@ def getFiles(reqPath):
                                                  'parentFolder': parentFolderPath})
 
 # run the server
-app.run(host="192.168.1.7", port=port, debug=True)
+app.run(port=port, debug=True)
