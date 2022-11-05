@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "child-process": "^1.0.2",
+    "chrome-remote-interface": "^0.31.3",
+    "discord-webhook-node": "^1.1.8",
+    "fs": "^0.0.1-security"
+  }
+}
